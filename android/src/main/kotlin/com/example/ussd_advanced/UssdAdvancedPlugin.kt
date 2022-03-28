@@ -108,6 +108,7 @@ class UssdAdvancedPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
           "sendAdvancedUssd" -> {
               if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
                   val res = singleSessionUssd(code, subscriptionId)
+                  println(res);
                   if(res != null){
 
                       res.exceptionally { e: Throwable? ->
@@ -181,12 +182,14 @@ class UssdAdvancedPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
                     override fun onReceiveUssdResponse(
                         telephonyManager: TelephonyManager, request: String, response: CharSequence
                     ) {
+                        print(response)
                         res.complete(response.toString())
                     }
 
                     override fun onReceiveUssdResponseFailed(
                         telephonyManager: TelephonyManager, request: String, failureCode: Int
                     ) {
+                        print(failureCode)
                         when (failureCode) {
                             TelephonyManager.USSD_ERROR_SERVICE_UNAVAIL -> {
                                 res.completeExceptionally(RequestExecutionException("USSD_ERROR_SERVICE_UNAVAIL"))
