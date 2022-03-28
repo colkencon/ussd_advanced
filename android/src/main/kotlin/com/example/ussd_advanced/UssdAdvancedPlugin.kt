@@ -108,7 +108,7 @@ class UssdAdvancedPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
           "sendAdvancedUssd" -> {
               if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
                   val res = singleSessionUssd(code, subscriptionId)
-                  println(res);
+
                   if(res != null){
 
                       res.exceptionally { e: Throwable? ->
